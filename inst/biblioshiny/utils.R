@@ -38,7 +38,7 @@ igraph2PNG <- function(x, filename, width = 10, height = 7, dpi=300){
     group_by(.data$cluster) %>% 
     slice_head(n=3)
   V(x)$label[!(V(x)$label %in% df$name)] <- ""
-  graph2ppt(file = filename, appended=True)
+  graph2ppt(file = filename, append=True)
   png(filename = filename, width = width, height = height, unit="in", res=dpi) 
   grid::grid.draw(plot(x))
   dev.off()
