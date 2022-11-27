@@ -31,14 +31,12 @@ strSynPreview <- function(string){
 }
 
 # from igraph to png file
-igraph2PNG <- function(x, filename, width = 10, height = 7, dpi=300){
-  library(export)
+igraph2PNG <- function(x, filename, width = 10, height = 7, dpi=1200){
   V(x)$centr <- centr_betw(x)$res
   df <- data.frame(name=V(x)$label,cluster=V(x)$color, centr=V(x)$centr) %>% 
     group_by(.data$cluster) %>% 
     slice_head(n=3)
   V(x)$label[!(V(x)$label %in% df$name)] <- ""
-  graph2ppt(file = filename, append=True)
   png(filename = filename, width = width, height = height, unit="in", res=dpi) 
   grid::grid.draw(plot(x))
   dev.off()
